@@ -6,6 +6,22 @@ light/dark via `prefers-color-scheme`, and a filled "Back to home" button on 404
 No JavaScript, no external requests — the page and its variable font are fully
 self-hosted.
 
+<p>
+  <img src="screenshots/404-light.png" alt="404 page, light theme" width="49%" />
+  <img src="screenshots/404-dark.png" alt="404 page, dark theme" width="49%" />
+</p>
+
+<details>
+<summary>More screenshots (502, mobile)</summary>
+<p>
+  <img src="screenshots/502-dark.png" alt="502 page, dark theme" width="70%" />
+</p>
+<p>
+  <img src="screenshots/404-mobile-light.png" alt="404 page on mobile, light theme" width="35%" />
+  <img src="screenshots/404-mobile-dark.png" alt="404 page on mobile, dark theme" width="35%" />
+</p>
+</details>
+
 ## Files
 
 | File | Purpose |
