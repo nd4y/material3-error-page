@@ -39,17 +39,17 @@ map $status $status_text {
 
 ```nginx
 # conf.d/error-page.conf
-location /custom-error-page.html {
+location ^~ /custom-error-page.html {
     ssi on;
     internal;
     root /usr/share/nginx/html/custom-error-page/;
 }
 
-location /custom-error-page.css {
+location ^~ /custom-error-page.css {
     root /usr/share/nginx/html/custom-error-page/;
 }
 
-location /inter-roman-var.woff2 {
+location ^~ /inter-roman-var.woff2 {
     root /usr/share/nginx/html/custom-error-page/;
 }
 
@@ -63,6 +63,14 @@ proxy_intercept_errors on;
 Include both files in every `server {}` block that should use the page, and mount
 this repo's three files at `/usr/share/nginx/html/custom-error-page/` (bind mount,
 `COPY` in a custom image, or an init container — whatever fits your deployment).
+
+**The `^~` matters.** These are plain-prefix locations; if your config also has a
+*regex* location matching `.css`/`.woff2` (e.g. a static-asset proxy cache keyed by
+extension), the regex location wins over a plain prefix by nginx's own precedence
+rules and silently swallows these paths — the page's CSS/font end up proxied to
+your backend instead of served from disk, and the error page renders unstyled.
+`^~` forces the prefix match to win outright. (Found this the hard way running the
+page behind a `location ~* \.(css|js|woff2|...)$ { proxy_cache ...; }` block.)
 
 ## Customizing
 
