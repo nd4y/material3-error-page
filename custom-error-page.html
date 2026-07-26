@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title><!--# echo var="status" default="" --> &ndash; <!--# echo var="status_text" default="Something went wrong" --></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="stylesheet" href="/custom-error-page.css" />
+</head>
+<body>
+<main class="scrim">
+    <section class="card" role="alert">
+        <div class="icon-badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <rect x="10.75" y="6" width="2.5" height="8" rx="1.25" />
+                <circle cx="12" cy="16.75" r="1.35" />
+            </svg>
+        </div>
+
+        <p class="status-code"><!--# echo var="status" --></p>
+        <h1 class="status-text"><!--# echo var="status_text" default="Something went wrong" --></h1>
+
+        <p class="description">
+            <!--# if expr="$status = 404" -->
+            The page you were looking for may have been deleted or moved.
+            <!--# elif expr="$status = /4\d\d/" -->
+            Your browser sent a request that the server was unable to process.
+            <!--# elif expr="$status = /5\d\d/" -->
+            The server encountered an error and could not complete your request. Please try again later.
+            <!--# else -->
+            Something went wrong while trying to display this page. Please try again later.
+            <!--# endif -->
+        </p>
+
+        <!--# if expr="$status = 404" -->
+        <div class="actions">
+            <a href="/" class="btn-filled">Back to home</a>
+        </div>
+        <!--# endif -->
+
+        <p class="footer">nginx at <!--# echo var="host" default="localhost" --></p>
+    </section>
+</main>
+</body>
+</html>
