@@ -24,11 +24,11 @@ self-hosted.
 
 ## Files
 
-| File | Purpose |
-|---|---|
-| `custom-error-page.html` | The page template. Uses nginx SSI (`ssi on;`) to fill in `$status`, `$status_text` and `$host`. |
-| `custom-error-page.css` | Material 3 styling: design tokens as CSS custom properties, overridden under `@media (prefers-color-scheme: dark)`. |
-| `inter-roman-var.woff2` | Self-hosted Inter variable font (weights 100–900) used for all text. |
+| File                     | Purpose                                                                                                             |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------- |
+| `custom-error-page.html` | The page template. Uses nginx SSI (`ssi on;`) to fill in `$status`, `$status_text` and `$host`.                     |
+| `custom-error-page.css`  | Material 3 styling: design tokens as CSS custom properties, overridden under `@media (prefers-color-scheme: dark)`. |
+| `inter-roman-var.woff2`  | Self-hosted Inter variable font (weights 100–900) used for all text.                                                |
 
 ## Requirements
 
@@ -81,7 +81,7 @@ this repo's three files at `/usr/share/nginx/html/custom-error-page/` (bind moun
 `COPY` in a custom image, or an init container — whatever fits your deployment).
 
 **The `^~` matters.** These are plain-prefix locations; if your config also has a
-*regex* location matching `.css`/`.woff2` (e.g. a static-asset proxy cache keyed by
+_regex_ location matching `.css`/`.woff2` (e.g. a static-asset proxy cache keyed by
 extension), the regex location wins over a plain prefix by nginx's own precedence
 rules and silently swallows these paths — the page's CSS/font end up proxied to
 your backend instead of served from disk, and the error page renders unstyled.
@@ -108,3 +108,7 @@ styling.
 MIT — see [LICENSE](LICENSE) — for the HTML/CSS. `inter-roman-var.woff2` is the
 [Inter](https://github.com/rsms/inter) variable font, distributed under the
 SIL Open Font License 1.1.
+
+## Development standard
+
+This repository adopts version 0.4.0 of the shared development standard. Read the [English guide](docs/en/development-standard.md) or [Russian guide](docs/ru/development-standard.md). The local toolkit checks staged secrets, changed-file formatting and bilingual documentation before merge. Existing product CI remains in place. Adoption is in progress; product acceptance and legacy-document translation are recorded separately in .repo-policy.json.
